@@ -603,14 +603,14 @@ if (!$gameOver && empty($_SESSION['pre_round_done']) && empty($_SESSION['round_s
                     document.getElementById('prPlay').addEventListener('click', () => {
                         document.getElementById('prStarter').value = winner;
                         document.getElementById('prChoice').value = 'play';
-                        document.getElementById('prPoints').value = playerScores[winner]; // send points
+                        // send points
                         document.getElementById('prForm').submit();
                     });
                     document.getElementById('prPass').addEventListener('click', () => {
                         const other = (winner === 1) ? 2 : 1;
                         document.getElementById('prStarter').value = other;
                         document.getElementById('prChoice').value = 'pass';
-                        document.getElementById('prPoints').value = playerScores[winner]; // send points
+                        // send points
                         document.getElementById('prForm').submit();
                     });
 
@@ -695,31 +695,36 @@ if (!$gameOver && empty($_SESSION['pre_round_done']) && empty($_SESSION['round_s
                     const card = cards[idx];
 
                     // ===== ZERO = Not on board =====
+                    // If key 0 is pressed (wrong answer, not on the board)
                     if (key === 0) {
                         wrongX.classList.add('show');
                         hostStopPressed();
                         if (buzzer) { try { buzzer.currentTime = 0; buzzer.play(); } catch (e) { } }
                         setTimeout(() => wrongX.classList.remove('show'), 800);
 
-                        // announce(`${players[currentPlayer]}'s answer is NOT on the board!`);
+                        // Mark current player's answer as wrong
                         playerScores[currentPlayer] = 0;
                         playerAnswers[currentPlayer] = null;
                         hasAnswered[currentPlayer] = true;
                         zeroPressed[currentPlayer] = true;
 
                         const other = currentPlayer === 1 ? 2 : 1;
+
+                        // If the other player has already answered, decide the winner
                         if (hasAnswered[other]) {
                             faceoffOver = true;
                             decideWinner();
                             return;
                         }
 
-                        // Otherwise switch to other player
+                        // If Player 1 is wrong, switch to Player 2 only if they haven't answered yet
                         currentPlayer = other;
                         setActivePlayer(currentPlayer);
                         return;
-                        return;
                     }
+
+
+
 
                     if (!card) return;
 
@@ -756,29 +761,31 @@ if (!$gameOver && empty($_SESSION['pre_round_done']) && empty($_SESSION['round_s
                     }
 
                     // Reveal card normally
+                    // If card is answered
                     const pointsEarned = revealCard(card);
                     playerScores[currentPlayer] = pointsEarned;
                     playerAnswers[currentPlayer] = ansText;
                     hasAnswered[currentPlayer] = true;
 
+                    // If the answer is the top answer, end the face-off immediately
                     if (pointsEarned === topPoints) {
-                        // Top answer ends face-off immediately
                         faceoffOver = true;
                         setTimeout(() => showPlayPassOverlay(currentPlayer), 1200);
                         return;
                     }
 
                     const other = currentPlayer === 1 ? 2 : 1;
+
                     if (!hasAnswered[other]) {
+                        // Switch to other player if they haven't answered yet
                         currentPlayer = other;
                         setActivePlayer(currentPlayer);
-                        // announce(`${players[currentPlayer]} now has the chance!`);
-                    }
-                    else {
+                    } else {
                         // Both players answered → decide winner
                         faceoffOver = true;
                         decideWinner();
                     }
+
                 });
 
                 function decideWinner() {
