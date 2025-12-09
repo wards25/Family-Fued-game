@@ -843,7 +843,7 @@ if ($gameOver) {
         <meta charset="UTF-8">
         <title>Advancing to Final Round</title>
         <meta http-equiv="refresh"
-            content="5;url=finalround.php?player=<?php echo $winnerPlayer; ?>&q=0">
+            content="5;url=finalround_board.php?player=<?php echo $winnerPlayer; ?>&q=0">
         <style>
             body {
                 background: #012060;

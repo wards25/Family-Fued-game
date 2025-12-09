@@ -7,9 +7,9 @@ $answer = trim($_POST['answer']);
 
 $stmt = $conn->prepare("
     REPLACE INTO fast_player_answers(player, question_id, answer_text)
-    VALUES(1, ?, ?)
+    VALUES(?, ?, ?)
 ");
-$stmt->bind_param("is",$qid, $answer);
+$stmt->bind_param("iis", $_POST['player'], $qid, $answer);
 $stmt->execute();
 
 echo "OK";
