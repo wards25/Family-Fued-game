@@ -7,7 +7,7 @@ if (!$gameOver && empty($_SESSION['round_started']) && !empty($_SESSION['pre_rou
     $players = $_SESSION['players'];
     $totals = $_SESSION['totals'];
     $starter = isset($_SESSION['starter']) ? (int) $_SESSION['starter'] : 1;
-    ?>
+?>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -106,7 +106,7 @@ if (!$gameOver && empty($_SESSION['round_started']) && !empty($_SESSION['pre_rou
     </body>
 
     </html>
-    <?php
+<?php
     exit();
 }
 
@@ -136,7 +136,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
     $players = $_SESSION['players'];
     $totals = $_SESSION['totals'];
     $starter = isset($_SESSION['starter']) ? (int) $_SESSION['starter'] : 1;
-    ?>
+?>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -404,7 +404,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                 const ding = document.getElementById('ding');
                 const buzzer = document.getElementById('buzzer');
                 const wrongX = document.getElementById('wrongX');
-                
+
                 let stealResolved = false;
                 let roundLocked = false;
                 let activePlayer = <?php echo isset($_SESSION['starter']) ? (int) $_SESSION['starter'] : 1; ?>;
@@ -414,12 +414,18 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                     btn.classList.toggle('active', player === activePlayer);
                 });
 
-                let errors = { 1: 0, 2: 0 };
+                let errors = {
+                    1: 0,
+                    2: 0
+                };
                 let stealMode = false;
                 let stealAttemptUsed = false;
                 let round = <?php echo $round; ?>;
                 let roundMultiplier = 1;
-                let teamTotals = { 1: <?php echo $totals['1']; ?>, 2: <?php echo $totals['2']; ?> };
+                let teamTotals = {
+                    1: <?php echo $totals['1']; ?>,
+                    2: <?php echo $totals['2']; ?>
+                };
 
                 document.getElementById('total1').textContent = teamTotals[1];
                 document.getElementById('total2').textContent = teamTotals[2];
@@ -452,7 +458,12 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                 // --- WRONG X ANIMATION ---
                 function showWrongX() {
                     wrongX.classList.add('show');
-                    if (buzzer) { try { buzzer.currentTime = 0; buzzer.play(); } catch (e) { } }
+                    if (buzzer) {
+                        try {
+                            buzzer.currentTime = 0;
+                            buzzer.play();
+                        } catch (e) {}
+                    }
                     setTimeout(() => wrongX.classList.remove('show'), 800);
                 }
 
@@ -486,7 +497,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                     activePlayer = player;
                     playerButtons.forEach(btn => {
                         const btnPlayer = parseInt(btn.dataset.player);
-                        btn.disabled = btnPlayer !== player;        // disable non-active
+                        btn.disabled = btnPlayer !== player; // disable non-active
                         btn.classList.toggle('active', btnPlayer === player); // highlight active
                     });
                 }
@@ -504,7 +515,10 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
 
                             // play question reveal sound
                             if (qding) {
-                                try { qding.currentTime = 0; qding.play(); } catch (e) { }
+                                try {
+                                    qding.currentTime = 0;
+                                    qding.play();
+                                } catch (e) {}
                             }
 
                             // fade-in animation
@@ -554,7 +568,12 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                         if (!isRevealed && !card.dataset.disabled) {
                             card.classList.add('revealed');
                             stopTimer(false);
-                            if (ding) { try { ding.currentTime = 0; ding.play(); } catch (e) { } }
+                            if (ding) {
+                                try {
+                                    ding.currentTime = 0;
+                                    ding.play();
+                                } catch (e) {}
+                            }
 
                             const pts = parseInt(card.dataset.points);
                             const scoreEl = document.getElementById(`score${activePlayer}`);
@@ -563,7 +582,9 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                             const allRevealed = Array.from(cards).every(c => c.classList.contains('revealed'));
                             if (allRevealed) {
                                 let totalPoints = 0;
-                                cards.forEach(c => { totalPoints += parseInt(c.dataset.points); });
+                                cards.forEach(c => {
+                                    totalPoints += parseInt(c.dataset.points);
+                                });
                                 const scaled = totalPoints * roundMultiplier;
                                 teamTotals[activePlayer] += scaled;
                                 document.getElementById(`total${activePlayer}`).textContent = teamTotals[activePlayer];
@@ -571,7 +592,10 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
 
                                 // ✅ Play win sound
                                 if (win) {
-                                    try { win.currentTime = 0; win.play(); } catch (e) { }
+                                    try {
+                                        win.currentTime = 0;
+                                        win.play();
+                                    } catch (e) {}
                                 }
 
                                 setTimeout(() => {
@@ -583,7 +607,9 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                             if (stealMode && !stealAttemptUsed) {
                                 stealAttemptUsed = true;
                                 let totalPoints = 0;
-                                cards.forEach(c => { if (c.classList.contains('revealed')) totalPoints += parseInt(c.dataset.points); });
+                                cards.forEach(c => {
+                                    if (c.classList.contains('revealed')) totalPoints += parseInt(c.dataset.points);
+                                });
                                 const scaled = totalPoints * roundMultiplier;
                                 teamTotals[activePlayer] += scaled;
                                 document.getElementById(`total${activePlayer}`).textContent = teamTotals[activePlayer];
@@ -616,7 +642,10 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
 
                         // ✅ Play win.mp3 only on successful steal
                         if (win) {
-                            try { win.currentTime = 0; win.play(); } catch (e) { }
+                            try {
+                                win.currentTime = 0;
+                                win.play();
+                            } catch (e) {}
                         }
                     } else {
                         // ❌ Steal failed – award points to the opposing team (the one who had the board originally)
@@ -638,7 +667,10 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
 
                         // ✅ Optional: play a “buzzer” or fail sound
                         if (buzzer) {
-                            try { buzzer.currentTime = 0; buzzer.play(); } catch (e) { }
+                            try {
+                                buzzer.currentTime = 0;
+                                buzzer.play();
+                            } catch (e) {}
                         }
                     }
 
@@ -673,7 +705,10 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
 
                             // Optional: play a soft ding for reveal
                             if (ding) {
-                                try { ding.currentTime = 0; ding.play(); } catch (e) { }
+                                try {
+                                    ding.currentTime = 0;
+                                    ding.play();
+                                } catch (e) {}
                             }
                         });
                     }
@@ -691,7 +726,10 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                     // ✅ Play start countdown sound
                     const countdownStart = document.getElementById('countdown_start');
                     if (countdownStart) {
-                        try { countdownStart.currentTime = 0; countdownStart.play(); } catch (e) { }
+                        try {
+                            countdownStart.currentTime = 0;
+                            countdownStart.play();
+                        } catch (e) {}
                     }
                     // ✅ Play tick.mp3 and stop it after 4 seconds
                     const tick = document.getElementById('countdown_tick');
@@ -703,7 +741,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                                 tick.pause();
                                 tick.currentTime = 0; // reset to start
                             }, 4000); // stop after 4 seconds
-                        } catch (e) { }
+                        } catch (e) {}
                     }
 
                     timer = setInterval(() => {
@@ -732,7 +770,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                         try {
                             tick.pause();
                             tick.currentTime = 0; // reset sound
-                        } catch (e) { }
+                        } catch (e) {}
                     }
 
                     // 🛑 Also stop the countdown_start sound if it's still playing
@@ -741,7 +779,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                         try {
                             countdownStart.pause();
                             countdownStart.currentTime = 0;
-                        } catch (e) { }
+                        } catch (e) {}
                     }
 
                     if (auto) {
@@ -783,32 +821,48 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
     </body>
 
     </html>
-    <?php
+<?php
     exit();
 } // end main round block
 
 // ----------------- GAME OVER -----------------
+// ----------------- AFTER ROUND 4 → GO TO FINAL ROUND -----------------
 if ($gameOver) {
     $totals = $_SESSION['totals'];
-    $winner = $totals['1'] > $totals['2'] ? $_SESSION['players']['1'] : $_SESSION['players']['2'];
-    ?>
+    $winnerPlayer = ($totals['1'] > $totals['2']) ? 1 : 2;
+    $winnerName   = $_SESSION['players'][$winnerPlayer];
+
+    // Save winner for final round
+    $_SESSION['final_winner'] = $winnerPlayer;
+
+?>
     <!DOCTYPE html>
-    <html>
+    <html lang="en">
 
     <head>
-        <meta charset="utf-8">
-        <title>Game Over</title>
+        <meta charset="UTF-8">
+        <title>Advancing to Final Round</title>
+        <meta http-equiv="refresh"
+            content="5;url=finalround.php?player=<?php echo $winnerPlayer; ?>&q=0">
+        <style>
+            body {
+                background: #012060;
+                color: #fff;
+                text-align: center;
+                padding: 80px;
+                font-family: Arial;
+            }
+        </style>
     </head>
 
-    <body style="text-align:center;padding:80px;background:#012060;color:#fff;">
-        <h1>🏆 GAME OVER 🏆</h1>
-        <h2>Winner: <?php echo htmlspecialchars($winner); ?></h2>
-        <a href="?reset_game=1"
-            style="display:inline-block;margin-top:20px;padding:10px 20px;background:#007bff;color:#fff;border-radius:8px;text-decoration:none;">Play
-            Again</a>
+    <body>
+        <h1>🏆 ROUND WINNER! 🏆</h1>
+        <h2><?php echo htmlspecialchars($winnerName); ?> wins the game!</h2>
+        <h3>Preparing Final Round (Fast Money)...</h3>
+        <p>You will be redirected in 5 seconds.</p>
     </body>
 
     </html>
-    <?php
+<?php
     exit();
 }
