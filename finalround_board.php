@@ -252,7 +252,24 @@
 
         // Update board
         updateBoard();
-        setInterval(updateBoard, 1000);
+        setInterval(() => {
+            updateBoard();
+
+            // Check for host messages
+            fetch("fastmoney_last_result.php")
+                .then(r => r.text())
+                .then(status => {
+                    if (status === "duplicate") {
+                        if (audioAllowed) {
+                            buzzerAudio.currentTime = 0;
+                            buzzerAudio.play();
+                        }
+
+                        // Clear message so it doesn't repeat
+                        fetch("fastmoney_last_result.php?msg=");
+                    }
+                });
+        }, 1000);
 
         let saveSent = false;
         function saveTotalToDatabase() {

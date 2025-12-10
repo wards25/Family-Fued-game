@@ -1,9 +1,9 @@
-﻿table_question_status ,questions,answers,pts
-0,sample,sample,20
-0,,,
-0,,,
-0,,,
-1,,,
-1,,,
-1,,,
-1,,,
+﻿table_question_status ,round,question_text,answer_text_1,points_1,answer_text_2,points_2,answer_text_3,points_3,asnwer_text_4,points_4,answer_text_5,points_5
+0,1,Sino ang kailangan pumasok kahit holiday,Delivery Driver,15,Doktor,26,Security Guard,23,Pulis,11,Nurse,9
+0,2,"Parte ng katawan na nag sisimula sa letrang ""T""",Talampakan,32,Talukap,12,Tiyan,35,Tainga,16,Tuhod,20
+0,3,Name something na masakit pero masarap,Masahe,40,Manicure/Pedicure,20,Loving Loving,16,Mag pa tatoo,18,Magmahal,25
+0,4,Di ka mag papamasahe kung ang masahista ay,Lalaki,36,Di marunong,41,Mabaho,5,Lasing,10,Kaaway,12
+1,1,Magbigay ng mga pagkain na madalas hinahanap kapag gutom ,Noodles,35,Kanin,12,Prutas,21,Tinapay,17,Biscuit,5
+1,2,Ano ang ginagawa ng mga tao sa umaga,Mag almusal ,40,Maligo,25,Mag Exercise,10,Maghilamos,21,Mag dasal,15
+1,3,Magbigay ng mga Natural Disaster maliban sa Baha ,Lindol ,30,Pagputok ng bulkan ,25,Buhawi,19,Sunog,26,landslide,27
+1,4,Ano ang pinaka-hindi pwedeng mawala sa bag ng babae,Cellphone,41,Wallet,26,Pabango,20,Lipstick,34,Salamin,37

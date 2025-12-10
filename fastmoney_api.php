@@ -1,7 +1,6 @@
 <?php
 session_start();
 include "dbconnect.php";
-
 // Which player? (default = player 1)
 $player = isset($_GET['player']) ? (int)$_GET['player'] : 1;  // Get the player from the URL parameter
 

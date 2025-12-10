@@ -43,16 +43,23 @@ document.querySelectorAll(".saveBtn").forEach(btn => {
     btn.onclick = function() {
         let qid = this.dataset.qid;
         let answer = document.querySelector("input[data-qid='"+qid+"']").value;
-        let player = document.getElementById("playerSelect").value; // Get selected player
+        let player = document.getElementById("playerSelect").value;
 
-        // Send the data to fastmoney_save.php including the player id
         fetch("fastmoney_save.php", {
             method: "POST",
             headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             body: "qid=" + qid + "&answer=" + encodeURIComponent(answer) + "&player=" + player
+        })
+        .then(r => r.text())
+        .then(res => {
+            console.log("SAVE RESPONSE:", res);
+
+            // Store last response for board (simple global variable on server)
+            fetch("fastmoney_last_result.php?msg=" + res);
         });
     }
 });
+
 </script>
 
 </div>

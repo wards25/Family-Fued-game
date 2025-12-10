@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 8.0.30, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.43, for Win64 (x86_64)
 --
--- Host: localhost    Database: family_feud
+-- Host: 127.0.0.1    Database: family_feud
 -- ------------------------------------------------------
--- Server version	8.0.30
+-- Server version	5.5.5-10.4.32-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -23,12 +23,12 @@ DROP TABLE IF EXISTS `answers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `answers` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `question_id` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question_id` int(11) NOT NULL,
   `answer_text` text NOT NULL,
-  `points` int NOT NULL,
+  `points` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,8 +37,109 @@ CREATE TABLE `answers` (
 
 LOCK TABLES `answers` WRITE;
 /*!40000 ALTER TABLE `answers` DISABLE KEYS */;
-INSERT INTO `answers` VALUES (1,1,'Bite Nails',30),(2,1,'Fidget',25),(3,1,'Sweat',20),(4,1,'Talk a lot',15),(5,1,'Shake',10),(6,2,'Books',35),(7,2,'Pencils/Pens',25),(8,2,'Notebook',15),(9,2,'Calculator',10),(10,2,'Lunch/Snack',5),(11,3,'Hawaii',30),(12,3,'Florida',25),(13,3,'California',20),(14,3,'New York City',15),(15,3,'Las Vegas',10),(16,4,'Brush teeth',35),(17,4,'Set alarm',25),(18,4,'Read',15),(19,4,'Wash fase',15),(20,4,'Check phone',10);
+INSERT INTO `answers` VALUES (1,1,'Humalik',20),(2,1,'Mag Salita',50),(3,1,'Kumanta',30),(4,1,'Sumipol',12),(5,1,'Dumila',16),(6,2,'Magtakip ng Ilong ',40),(7,2,'Lumipat ng Upuan ',20),(8,2,'Mag Pabango',16),(9,2,'Iiwas ang mukha ',18),(10,2,'Matulog ',25),(11,3,'Magulang',15),(12,3,'Pera',46),(13,3,'Damit na isusuot',23),(14,3,'Simbahan',5),(15,3,'Mga bisita',10),(16,4,'Lollipop',36),(17,4,'Ice Cream',41),(18,4,'Stamp',5),(19,4,'Popsicle',10),(20,4,'Envelope',12),(21,5,'Computer',50),(22,5,'Lapis/papel',20),(23,5,'Lamesa',10),(24,5,'Upuan',5),(25,5,'Telepono',14);
 /*!40000 ALTER TABLE `answers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fast_answers`
+--
+
+DROP TABLE IF EXISTS `fast_answers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `fast_answers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question_id` int(11) NOT NULL,
+  `asnwer` text NOT NULL,
+  `points` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fast_answers`
+--
+
+LOCK TABLES `fast_answers` WRITE;
+/*!40000 ALTER TABLE `fast_answers` DISABLE KEYS */;
+INSERT INTO `fast_answers` VALUES (1,1,'ML',30),(2,1,'CODM',28),(3,1,'ROBLOX',8),(4,1,'BLOCK BLAST',7),(5,1,'CANDY CRUSH',5),(6,2,'PANSIT',25),(7,2,'LUMPIA',20),(8,2,'CHICKEN CURRY',17),(9,2,'ADOBO',15),(10,2,'GULAY',10),(11,3,'CHRISTMAS PARTY',21),(12,3,'FIELD TRIP',20),(13,3,'GRADUATION',19),(14,3,'SEMBREAK',8),(15,3,'INTRAMS',5),(16,4,'RED',15),(17,4,'BLUE',13),(18,4,'BLACK',11),(19,4,'ORANGE',10),(20,4,'GREEN',4),(21,5,'IVANA ALAWI',35),(22,5,'CONG TV',30),(23,5,'GEO ONG ',26),(24,5,'ZEINAB HARAKE',13),(25,5,'ALEX GONZAGA',10);
+/*!40000 ALTER TABLE `fast_answers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fast_player_answers`
+--
+
+DROP TABLE IF EXISTS `fast_player_answers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `fast_player_answers` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `player` int(11) NOT NULL,
+  `question_id` int(11) NOT NULL,
+  `answer_text` text NOT NULL,
+  `points` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fast_player_answers`
+--
+
+LOCK TABLES `fast_player_answers` WRITE;
+/*!40000 ALTER TABLE `fast_player_answers` DISABLE KEYS */;
+INSERT INTO `fast_player_answers` VALUES (1,1,1,'SAMPLE',0),(2,2,1,'ML',0),(3,1,2,'SAMPLE',0),(4,2,2,'SAMPLES',0);
+/*!40000 ALTER TABLE `fast_player_answers` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fast_questions`
+--
+
+DROP TABLE IF EXISTS `fast_questions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `fast_questions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question_text` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fast_questions`
+--
+
+LOCK TABLES `fast_questions` WRITE;
+/*!40000 ALTER TABLE `fast_questions` DISABLE KEYS */;
+INSERT INTO `fast_questions` VALUES (1,'Usong Mobile Games'),(2,'Madalas na tinitinda sa ramosco canteen'),(3,'Ano ang pinaka aabangan na school event ng mga estudyante'),(4,'Color ng tshirt na madalas suotin'),(5,'Pinoy Influencer');
+/*!40000 ALTER TABLE `fast_questions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `fast_total_points`
+--
+
+DROP TABLE IF EXISTS `fast_total_points`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `fast_total_points` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `player_id` int(11) NOT NULL,
+  `total_points` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `fast_total_points`
+--
+
+LOCK TABLES `fast_total_points` WRITE;
+/*!40000 ALTER TABLE `fast_total_points` DISABLE KEYS */;
+/*!40000 ALTER TABLE `fast_total_points` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -49,12 +150,12 @@ DROP TABLE IF EXISTS `pre_round_answers`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pre_round_answers` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `question_id` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `question_id` int(11) NOT NULL,
   `answer_text` text NOT NULL,
-  `points` int NOT NULL,
+  `points` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -63,7 +164,7 @@ CREATE TABLE `pre_round_answers` (
 
 LOCK TABLES `pre_round_answers` WRITE;
 /*!40000 ALTER TABLE `pre_round_answers` DISABLE KEYS */;
-INSERT INTO `pre_round_answers` VALUES (21,6,'Magpanggap na hindi nakita',40),(22,6,'Takbo',30),(23,6,'Mag-smile at mag-wave',15),(24,6,'Maglakad ng mabilis papalayo',10),(25,6,'Tumawa para magmukhang okay ang buhay',5),(26,5,'Instant noodles',35),(27,5,'Pan de sal',25),(28,5,'Tuyo o sardinas',15),(29,5,'Leftover ulam',15),(30,5,'Prutas',10),(31,7,'Cellphone charger',30),(32,7,'Wallet / Purse',25),(33,7,'Susi',20),(34,7,'Face mask',15),(35,7,'Umbrella',10),(36,8,'Nagmumura sa loob ng sasakyan',35),(37,8,'Nag-message sa friends',25),(38,8,'Nakikinig ng music',15),(39,8,'Nagmumuni-muni / nai-stress',15),(40,8,'Nag-scroll sa social media',10);
+INSERT INTO `pre_round_answers` VALUES (1,1,'Noodles',35),(2,1,'Kanin',12),(3,1,'Prutas',21),(4,1,'Tinapay',17),(5,1,'Biscuit',5),(6,2,'Mag almusal ',40),(7,2,'Maligo',25),(8,2,'Mag Exercise',10),(9,2,'Maghilamos',21),(10,2,'Mag dasal',15),(11,3,'Lindol ',30),(12,3,'Pagputok ng bulkan ',25),(13,3,'Buhawi',19),(14,3,'Sunog',26),(15,3,'landslide',27),(16,4,'Cellphone',41),(17,4,'Wallet',26),(18,4,'Pabango',20),(19,4,'Lipstick',34),(20,4,'Salamin',37),(21,5,'Traffic ',50),(22,5,'Hindi na gising',34),(23,5,'Na aksidente ang sinasakyan',10),(24,5,'Walang Ma sakyan',5),(25,5,'Tinatamad',18);
 /*!40000 ALTER TABLE `pre_round_answers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -75,11 +176,12 @@ DROP TABLE IF EXISTS `pre_round_questions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `pre_round_questions` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `question_text` text NOT NULL,
-  `round` int NOT NULL,
+  `round` int(11) NOT NULL,
+  `question_status` int(11) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -88,7 +190,7 @@ CREATE TABLE `pre_round_questions` (
 
 LOCK TABLES `pre_round_questions` WRITE;
 /*!40000 ALTER TABLE `pre_round_questions` DISABLE KEYS */;
-INSERT INTO `pre_round_questions` VALUES (5,'Ano ang madalas kainin ng mga tao tuwing late sa almusal?',1),(6,'Ano ang unang ginagawa ng tao kapag nakita ang ex niya sa mall?',2),(7,'Ano ang mga bagay na lagi nating naiwan sa bahay pag-alis?',3),(8,'Ano ang karaniwang ginagawa ng tao kapag traffic sa EDSA?',4);
+INSERT INTO `pre_round_questions` VALUES (1,'Magbigay ng mga pagkain na madalas hinahanap kapag gutom ',1,1),(2,'Ano ang ginagawa ng mga tao sa umaga',2,1),(3,'Magbigay ng mga Natural Disaster maliban sa Baha ',3,1),(4,'Ano ang pinaka-hindi pwedeng mawala sa bag ng babae',4,1),(5,'Ano ang mga dahilan bakit na late ang isang tao sa trabaho',5,1);
 /*!40000 ALTER TABLE `pre_round_questions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -100,11 +202,12 @@ DROP TABLE IF EXISTS `questions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `questions` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `question_text` text NOT NULL,
-  `round` int NOT NULL,
+  `round` int(11) NOT NULL,
+  `question_status` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -113,7 +216,7 @@ CREATE TABLE `questions` (
 
 LOCK TABLES `questions` WRITE;
 /*!40000 ALTER TABLE `questions` DISABLE KEYS */;
-INSERT INTO `questions` VALUES (1,'Mag bigay ng ginagawa ng tao pag siya ay kinakabahan?',1),(2,'Mag bigay ng bagay na nakikita sa school bag?',2),(3,'Ma gbigay ng sikat na bakasyunan sa U.S.?',3),(4,'Mag bigay ng ginagawa mo bago matulog?',4);
+INSERT INTO `questions` VALUES (1,'Ano ang pwedeng gawin gamit ang bibig',1,0),(2,'Kadalasan ginagawa kung may Body Odor ang katabi mo sa sasakyan',2,0),(3,'Ano ang madalas pag-awayan ng magkasintahang ikakasal',3,0),(4,'Mga Bagay na dinidilaan ',4,0),(5,'Magbigay ng mga bagay na nakikita sa opisina ',5,0);
 /*!40000 ALTER TABLE `questions` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -126,4 +229,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-11-12 13:15:55
+-- Dump completed on 2025-12-10 18:04:36
