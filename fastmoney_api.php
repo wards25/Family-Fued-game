@@ -11,15 +11,21 @@ $sql = "
     fq.id AS qid,
     fq.question_text,
     fa.answer_text AS player_answer,
-    CASE WHEN fa.answer_text = ffa.asnwer THEN ffa.points ELSE 0 END AS points
+    COALESCE((
+        SELECT points 
+        FROM fast_answers 
+        WHERE question_id = fq.id 
+        AND asnwer = fa.answer_text 
+        LIMIT 1
+    ), 0) AS points
+
 FROM fast_questions fq
 LEFT JOIN fast_player_answers fa
     ON fq.id = fa.question_id
     AND fa.player = $player
-LEFT JOIN fast_answers ffa
-    ON fq.id = ffa.question_id
 ORDER BY fq.id ASC
 LIMIT 5;
+
 ";
 
 $res = $conn->query($sql);
