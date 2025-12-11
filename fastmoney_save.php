@@ -33,9 +33,4 @@ $stmt = $conn->prepare("
 $stmt->bind_param("iis", $player, $qid, $answer);
 $stmt->execute();
 
-if ($stmt->error) {
-    echo "SQL ERROR: " . $stmt->error;
-    exit;
-}
-
 echo "OK";

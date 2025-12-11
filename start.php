@@ -511,11 +511,13 @@ if (!$gameOver && empty($_SESSION['pre_round_done']) && empty($_SESSION['round_s
 
                     // decide next action
                     const other = currentPlayer === 1 ? 2 : 1;
-                    if (hasAnswered[other]) {
-                        faceoffOver = true;
-                        decideWinner();
-                        return;
-                    }
+
+                    //this line nag cause ng double answer sa isang player
+                    // if (hasAnswered[other]) {
+                    //     faceoffOver = true;
+                    //     decideWinner();
+                    //     return;
+                    // }
 
                     // Otherwise switch to the other player and let them have their chance
                     currentPlayer = other;
@@ -711,11 +713,13 @@ if (!$gameOver && empty($_SESSION['pre_round_done']) && empty($_SESSION['round_s
                         const other = currentPlayer === 1 ? 2 : 1;
 
                         // If the other player has already answered, decide the winner
-                        if (hasAnswered[other]) {
-                            faceoffOver = true;
-                            decideWinner();
-                            return;
-                        }
+
+                        //ito yung nag cause ng problem na nag double answer sa isang player 
+                        // if (hasAnswered[other]) {
+                        //     faceoffOver = true;
+                        //     decideWinner();
+                        //     return;
+                        // }
 
                         // If Player 1 is wrong, switch to Player 2 only if they haven't answered yet
                         currentPlayer = other;
@@ -752,6 +756,7 @@ if (!$gameOver && empty($_SESSION['pre_round_done']) && empty($_SESSION['round_s
                             currentPlayer = other;
                             setActivePlayer(currentPlayer);
                             // announce(`${players[currentPlayer]} now has the chance!`);
+                            // console.log(`${players[currentPlayer]} now has the chance!`);
                         } else {
                             // Both players answered → decide winner
                             faceoffOver = true;

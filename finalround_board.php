@@ -251,6 +251,7 @@
         }
 
         // Update board
+        updateBoard();
         setInterval(() => {
             updateBoard();
 
