@@ -249,9 +249,12 @@
                 }
             }, 1000);
         }
+        document.addEventListener("click", () => {
+            audioAllowed = true;
+            console.log("AUDIO ALLOWED");
+        }, { once: true });
 
         // Update board
-        updateBoard();
         setInterval(() => {
             updateBoard();
 
@@ -261,10 +264,10 @@
                 .then(status => {
                     if (status === "duplicate") {
                         if (audioAllowed) {
+                            console.log("Playing duplicate buzzer");
                             buzzerAudio.currentTime = 0;
                             buzzerAudio.play();
                         }
-
                         // Clear message so it doesn't repeat
                         fetch("fastmoney_last_result.php?msg=");
                     }
