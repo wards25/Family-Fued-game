@@ -174,7 +174,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                 gap: 20px;
                 width: 100%;
                 max-width: 1300px;
-                margin: 0 auto 2rem auto;
+                margin: 0 auto 1rem auto;
             }
 
             @media(max-width:768px) {
@@ -281,7 +281,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
 
             .errors {
                 color: red;
-                font-size: 1.6em;
+                font-size: 1em;
             }
 
             .container {
@@ -331,7 +331,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
 
             <div class="row">
                 <!-- Player 1 -->
-                <div class="col-6 mb-3">
+                <div class="col-6 mb-1">
                     <button
                         class="btn btn-sm btn-outline-warning player-btn <?php echo ($_SESSION['starter'] == 1) ? 'active' : ''; ?> mb-2 w-100"
                         data-player="1">
@@ -347,7 +347,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                 </div>
 
                 <!-- Player 2 -->
-                <div class="col-6 mb-3">
+                <div class="col-6 mb-1">
                     <button
                         class="btn btn-sm btn-outline-warning player-btn <?php echo ($_SESSION['starter'] == 2) ? 'active' : ''; ?> mb-2 w-100"
                         data-player="2">
@@ -362,11 +362,15 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-body">
-                        <h6>TOTAL: <span id="total-pts"><h3 id="score-total"><b>0</b></h3></span></h6>
-                        <div id="errors-total" class="errors"></div>
-                    </div>
-                </div>
+    <div class="card-body">
+        <h3>
+            TOTAL:
+            <span id="score-total"><b>0</b></span>
+        </h3>
+        <div id="errors-total" class="errors"></div>
+    </div>
+</div>
+
             </div>
 
             <!-- Timer Controls -->
