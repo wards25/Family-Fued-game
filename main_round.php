@@ -2,12 +2,12 @@
 
 // ----------------- GET READY (Start screen) -----------------
 // Show the "Get Ready" start screen if pre-round is done but round hasn't started yet
-if (!$gameOver && empty($_SESSION['round_started']) && !empty($_SESSION['pre_round_done'])) {
+if (!$gameOver && empty($_SESSION['round_started'])) {
     // ensure players/totals available
     $players = $_SESSION['players'];
     $totals = $_SESSION['totals'];
     $starter = isset($_SESSION['starter']) ? (int) $_SESSION['starter'] : 1;
-?>
+    ?>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -37,12 +37,17 @@ if (!$gameOver && empty($_SESSION['round_started']) && !empty($_SESSION['pre_rou
                 border-radius: 12px;
                 box-shadow: 0 0 15px #000;
             }
+
+            .container {
+                overflow: hidden;
+                height: 100vh;
+            }
         </style>
     </head>
 
     <body>
         <div class="container">
-            <img class="img-fluid mb-3" src="logo.png" alt="Logo" style="height: 250px;">
+            <img class="img-fluid mb-3" src="animation.gif" alt="Logo" style="height: 150px;">
             <div class="card mx-auto text-center py-5 mb-4">
                 <h1 class="mb-2" style="font-size: 75px; color: #f3dc9f;"><b>ROUND <?php echo $round; ?></b></h1>
                 <h4 style="font-size: 40px;">Get Ready!</h4>
@@ -74,7 +79,7 @@ if (!$gameOver && empty($_SESSION['round_started']) && !empty($_SESSION['pre_rou
             </div>
 
             <form method="POST">
-                <button type="submit" name="start_round" class="btn btn-sm btn-warning mt-5 px-5"><i
+                <button type="submit" name="start_round" class="btn btn-sm btn-warning mt-2 px-5"><i
                         class="fa-solid fa-play"></i> START ROUND <?php echo $round; ?></button>
             </form>
 
@@ -106,7 +111,7 @@ if (!$gameOver && empty($_SESSION['round_started']) && !empty($_SESSION['pre_rou
     </body>
 
     </html>
-<?php
+    <?php
     exit();
 }
 
@@ -136,7 +141,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
     $players = $_SESSION['players'];
     $totals = $_SESSION['totals'];
     $starter = isset($_SESSION['starter']) ? (int) $_SESSION['starter'] : 1;
-?>
+    ?>
     <!DOCTYPE html>
     <html lang="en">
 
@@ -278,6 +283,11 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                 color: red;
                 font-size: 1.6em;
             }
+
+            .container {
+                overflow: hidden;
+                height: 100vh;
+            }
         </style>
     </head>
 
@@ -285,7 +295,6 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
 
         <div class="container py-4 text-center">
             <h3 class="text-warning">ROUND <?php echo $round; ?></h3>
-
             <!-- Question -->
             <div class="card text-light shadow mb-4" style="background-color: #012060;">
                 <div class="card-body">
@@ -328,7 +337,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                         data-player="1">
                         <b><?php echo strtoupper($players['1']); ?></b>
                     </button>
-                    <div class="card">
+                    <div class="card d-none">
                         <div class="card-body">
                             <h3 id="score1"><b>0</b></h3>
                             <div id="errors1" class="errors"></div>
@@ -344,7 +353,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                         data-player="2">
                         <b><?php echo strtoupper($players['2']); ?></b>
                     </button>
-                    <div class="card">
+                    <div class="card d-none">
                         <div class="card-body">
                             <h3 id="score2"><b>0</b></h3>
                             <div id="errors2" class="errors"></div>
@@ -352,11 +361,16 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                         </div>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h6>TOTAL: <span id="total-pts"><h3 id="score-total"><b>0</b></h3></span></h6>
+                        <div id="errors-total" class="errors"></div>
+                    </div>
+                </div>
             </div>
 
-
             <!-- Timer Controls -->
-            <div class="row mt-4 text-center justify-content-center align-items-center">
+            <div class="row mt-2 text-center justify-content-center align-items-center">
                 <div class="col-6">
                     <button id="hostStart" class="btn btn-success w-100 py-2"><b>Start Timer</b></button>
                 </div>
@@ -364,9 +378,8 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                     <button id="hostStop" class="btn btn-danger w-100 py-2" disabled><b>Stop Timer</b></button>
                 </div>
             </div>
-
             <!-- Timer Countdown Display -->
-            <div class="row mt-3">
+            <div class="row mt-2">
                 <div class="col-12">
                     <h2 id="timerDisplay"
                         style="color:#ffcc00;text-shadow:0 0 10px #000; font-size:3rem; font-weight:bold; display:none;">
@@ -375,7 +388,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                 </div>
             </div>
 
-            <div class="mt-4 d-flex justify-content-center align-items-center gap-1">
+            <div class="mt-2 d-flex justify-content-center align-items-center gap-1">
                 <form method="GET" class="m-0">
                     <button type="submit" name="next_round" value="1" class="btn btn-sm btn-outline-success"><i
                             class="fa fa-forward"></i></button>
@@ -410,7 +423,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                 let activePlayer = <?php echo isset($_SESSION['starter']) ? (int) $_SESSION['starter'] : 1; ?>;
                 playerButtons.forEach(btn => {
                     const player = parseInt(btn.dataset.player);
-                    btn.disabled = player !== activePlayer;
+                    // btn.disabled = player !== activePlayer;
                     btn.classList.toggle('active', player === activePlayer);
                 });
 
@@ -462,7 +475,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                         try {
                             buzzer.currentTime = 0;
                             buzzer.play();
-                        } catch (e) {}
+                        } catch (e) { }
                     }
                     setTimeout(() => wrongX.classList.remove('show'), 800);
                 }
@@ -481,6 +494,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                     if (errors[player] < 3) {
                         errors[player]++;
                         document.getElementById(`errors${player}`).innerHTML += '❌';
+                        document.getElementById(`errors-total`).innerHTML += '❌';
                         showWrongX();
                     }
 
@@ -518,7 +532,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                                 try {
                                     qding.currentTime = 0;
                                     qding.play();
-                                } catch (e) {}
+                                } catch (e) { }
                             }
 
                             // fade-in animation
@@ -572,12 +586,16 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                                 try {
                                     ding.currentTime = 0;
                                     ding.play();
-                                } catch (e) {}
+                                } catch (e) { }
                             }
 
                             const pts = parseInt(card.dataset.points);
                             const scoreEl = document.getElementById(`score${activePlayer}`);
                             scoreEl.textContent = parseInt(scoreEl.textContent) + pts * roundMultiplier;
+
+                            //new condition for score-total but not adding in session 
+                            const scoreTotalEl = document.getElementById('score-total');
+                             scoreTotalEl.textContent = parseInt(scoreTotalEl.textContent) + pts;
 
                             const allRevealed = Array.from(cards).every(c => c.classList.contains('revealed'));
                             if (allRevealed) {
@@ -595,7 +613,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                                     try {
                                         win.currentTime = 0;
                                         win.play();
-                                    } catch (e) {}
+                                    } catch (e) { }
                                 }
 
                                 setTimeout(() => {
@@ -645,7 +663,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                             try {
                                 win.currentTime = 0;
                                 win.play();
-                            } catch (e) {}
+                            } catch (e) { }
                         }
                     } else {
                         // ❌ Steal failed – award points to the opposing team (the one who had the board originally)
@@ -670,7 +688,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                             try {
                                 buzzer.currentTime = 0;
                                 buzzer.play();
-                            } catch (e) {}
+                            } catch (e) { }
                         }
                     }
 
@@ -708,7 +726,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                                 try {
                                     ding.currentTime = 0;
                                     ding.play();
-                                } catch (e) {}
+                                } catch (e) { }
                             }
                         });
                     }
@@ -729,7 +747,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                         try {
                             countdownStart.currentTime = 0;
                             countdownStart.play();
-                        } catch (e) {}
+                        } catch (e) { }
                     }
                     // ✅ Play tick.mp3 and stop it after 4 seconds
                     const tick = document.getElementById('countdown_tick');
@@ -741,7 +759,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                                 tick.pause();
                                 tick.currentTime = 0; // reset to start
                             }, 4000); // stop after 4 seconds
-                        } catch (e) {}
+                        } catch (e) { }
                     }
 
                     timer = setInterval(() => {
@@ -770,7 +788,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                         try {
                             tick.pause();
                             tick.currentTime = 0; // reset sound
-                        } catch (e) {}
+                        } catch (e) { }
                     }
 
                     // 🛑 Also stop the countdown_start sound if it's still playing
@@ -779,7 +797,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                         try {
                             countdownStart.pause();
                             countdownStart.currentTime = 0;
-                        } catch (e) {}
+                        } catch (e) { }
                     }
 
                     if (auto) {
@@ -821,7 +839,7 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
     </body>
 
     </html>
-<?php
+    <?php
     exit();
 } // end main round block
 
@@ -830,20 +848,19 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
 if ($gameOver) {
     $totals = $_SESSION['totals'];
     $winnerPlayer = ($totals['1'] > $totals['2']) ? 1 : 2;
-    $winnerName   = $_SESSION['players'][$winnerPlayer];
+    $winnerName = $_SESSION['players'][$winnerPlayer];
 
     // Save winner for final round
     $_SESSION['final_winner'] = $winnerPlayer;
 
-?>
+    ?>
     <!DOCTYPE html>
     <html lang="en">
 
     <head>
         <meta charset="UTF-8">
         <title>Advancing to Final Round</title>
-        <meta http-equiv="refresh"
-            content="5;url=finalround_board.php?player=<?php echo $winnerPlayer; ?>&q=0">
+        <meta http-equiv="refresh" content="5;url=finalround_board.php?player=<?php echo $winnerPlayer; ?>&q=0">
         <style>
             body {
                 background: #012060;
@@ -863,6 +880,6 @@ if ($gameOver) {
     </body>
 
     </html>
-<?php
+    <?php
     exit();
 }

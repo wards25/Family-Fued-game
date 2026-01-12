@@ -8,24 +8,41 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="fa-6/css/all.css" rel="stylesheet">
 <style>
-body, html {
+html, body {
+    width: 100%;
     height: 100%;
     margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
     font-family: 'Segoe UI', sans-serif;
-    background-color: #f8f9fa;
     background-image: url('bg.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.page-wrapper {
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 .center-content {
     text-align: center;
 }
+
+.center-content img {
+    max-height: 80vh;
+    width: auto;
+}
+
 #soundBtn {
-    position: absolute;
+    position: fixed;
     top: 20px;
     right: 20px;
     font-size: 30px;
@@ -34,18 +51,25 @@ body, html {
     background: rgba(0,0,0,0.5);
     border-radius: 50%;
     padding: 10px;
+    z-index: 1000;
 }
+
 </style>
 </head>
 <body>
 
-<div class="center-content">
-    <!-- <img class="img-fluid mb-4" src="logo.png" alt="Logo"> -->
-    <img class="img-fluid mb-4" src="animation.gif" alt="Animation">
-    <div class="form-group">
-        <a class="btn btn-warning btn-sm" href="players.php" id="startGameBtn"><i class="fa-solid fa-play"></i> START GAME</a>
+<div class="page-wrapper">
+    <div class="center-content">
+        <img src="animation.gif" alt="Animation" class="mb-4">
+
+        <div class="form-group">
+            <a class="btn btn-warning btn-sm" href="players.php" id="startGameBtn">
+                <i class="fa-solid fa-play"></i> START GAME
+            </a>
+        </div>
     </div>
 </div>
+
 
 <!-- Sound icon -->
 <audio id="themeAudio" src="theme.mp3" loop></audio>

@@ -26,16 +26,37 @@ if (isset($_POST['start_game'])) {
 <link href="fa-6/css/all.css" rel="stylesheet">
 
 <style>
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+}
+
 body {
     background-image: url('bg.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.page-wrapper {
+    width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Segoe UI', sans-serif;
+}
+
+.content {
+    text-align: center;
+}
+
+.content img {
+    max-height: 500px; 
+    width: auto;
 }
 
 .card {
@@ -46,32 +67,44 @@ body {
     color: #fff;
     padding: 2rem 2.5rem;
     width: 600px;
+    max-width: 90vw;
 }
+
 
 </style>
 </head>
 <body>
 
-<div class="text-center">
-    <!-- <img src="logo.png" class="logo"> -->
-    <img class="img-fluid mb-4" src="animation.gif" alt="Animation" class="logo">
-    <div class="card mx-auto">
-        <form method="POST">
-            <div class="row g-3 mb-4">
-                <div class="col-md-6">
-                    <input type="text" name="player1" class="form-control" placeholder="TEAM 1" required autocomplete="off" style="text-transform: uppercase;">
+<div class="page-wrapper">
+    <div class="content">
+        <img class="img-fluid mb-4" src="animation.gif" alt="Animation">
+
+        <div class="card mx-auto">
+            <form method="POST">
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <input type="text" name="player1" class="form-control"
+                               placeholder="TEAM 1" required autocomplete="off"
+                               style="text-transform: uppercase;">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="player2" class="form-control"
+                               placeholder="TEAM 2" required autocomplete="off"
+                               style="text-transform: uppercase;">
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <input type="text" name="player2" class="form-control" placeholder="TEAM 2" required autocomplete="off" style="text-transform: uppercase;">
-                </div>
-            </div>
-            <button type="submit" name="start_game" class="btn btn-warning btn-start btn-sm">
-                <i class="fa fa-play"></i>
-            </button>
-            <a type="button" class="btn btn-outline-secondary btn-sm" href="index.php"><i class="fa-solid fa-home"></i></a>
-        </form>
+
+                <button type="submit" name="start_game" class="btn btn-warning btn-sm">
+                    <i class="fa fa-play"></i>
+                </button>
+                <a class="btn btn-outline-secondary btn-sm" href="index.php">
+                    <i class="fa-solid fa-home"></i>
+                </a>
+            </form>
+        </div>
     </div>
 </div>
+
 
 <!-- Sound (same on every page) -->
 <audio id="themeAudio" src="theme.mp3" loop></audio>
