@@ -3,7 +3,7 @@ session_start();
 include('dbconnect.php');
 
 // CONFIG
-$maxRounds = 4;
+$maxRounds = 5;
 
 if (!isset($_SESSION['starter'])) {
     $_SESSION['starter'] = 1; // Player 1 always starts
@@ -87,3 +87,4 @@ $players = $_SESSION['players'];
 $gameOver = ($round > $maxRounds);
 
 include_once('main_round.php');
+include_once('gameover.php');

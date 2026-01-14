@@ -550,6 +550,10 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
                         stopTimer(false);
                     }
 
+                    if(e.key === 'x'){
+                        showWrongX();
+                        stopTimer(false);
+                    }
                     if (e.key === '+') {
                         // toggle between player 1 and 2
                         activePlayer = (activePlayer === 1) ? 2 : 1;
@@ -847,43 +851,6 @@ if (!$gameOver && !empty($_SESSION['round_started'])) {
     exit();
 } // end main round block
 
-// ----------------- GAME OVER -----------------
-// ----------------- AFTER ROUND 4 → GO TO FINAL ROUND -----------------
-if ($gameOver) {
-    $totals = $_SESSION['totals'];
-    $winnerPlayer = ($totals['1'] > $totals['2']) ? 1 : 2;
-    $winnerName = $_SESSION['players'][$winnerPlayer];
-
-    // Save winner for final round
-    $_SESSION['final_winner'] = $winnerPlayer;
-
-    ?>
-    <!DOCTYPE html>
-    <html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <title>Advancing to Final Round</title>
-        <meta http-equiv="refresh" content="5;url=finalround_board.php?player=<?php echo $winnerPlayer; ?>&q=0">
-        <style>
-            body {
-                background: #012060;
-                color: #fff;
-                text-align: center;
-                padding: 80px;
-                font-family: Arial;
-            }
-        </style>
-    </head>
-
-    <body>
-        <h1>🏆 ROUND WINNER! 🏆</h1>
-        <h2><?php echo htmlspecialchars($winnerName); ?> wins the game!</h2>
-        <h3>Preparing Final Round (Fast Money)...</h3>
-        <p>You will be redirected in 5 seconds.</p>
-    </body>
-
-    </html>
-    <?php
-    exit();
+if($gameOver){
+    header("location: finalround_board.php");
 }

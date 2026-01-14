@@ -6,11 +6,13 @@
 
     <style>
         body {
-            background: #001a33;
+            background: url("bg.jpg") no-repeat center center fixed;
+            background-size: cover;
             font-family: Arial Black, sans-serif;
             color: white;
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
 
         .board {
@@ -106,6 +108,24 @@
             color: #ffd60a;
             text-shadow: 0 0 10px #ffc300;
         }
+
+        #wrongX {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            font-size: 15rem;
+            color: red;
+            opacity: 0;
+            text-shadow: 0 0 30px rgba(255, 0, 0, 0.9);
+            transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+            z-index: 9999;
+        }
+
+        #wrongX.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
     </style>
 
 </head>
@@ -122,9 +142,11 @@
     <audio id="buzzer-sound" src="buzzer.mp3" preload="auto"></audio>
     <audio id="tick-sound" src="tick.mp3" preload="auto"></audio>
     <audio id="ding-sound" src="ding.mp3" preload="auto"></audio>
+    <audio id="buzzer" src="buzzer.mp3" preload="auto"></audio>
 
     <div class="board" id="board"></div>
     <div class="total">TOTAL: <span id="total-points">0</span></div>
+    <div id="wrongX">❌</div>
 
     <script>
         // URL parameter
@@ -200,6 +222,9 @@
                     else if (totalPoints >= 200) {
                         winAudio.currentTime = 0;
                         winAudio.play().catch(e => console.log("Win play prevented:", e));
+                       setTimeout(() => {
+                        window.location.href = "gameover.php";
+                       }, 5000);
                     }
                     else {
                         dingAudio.play();
@@ -288,7 +313,17 @@
                 .then(res => console.log("Saved:", res))
                 .catch(err => console.error("Save error:", err));
         }
-
+        // --- WRONG X ANIMATION ---
+        function showWrongX() {
+            wrongX.classList.add('show');
+            if (buzzer) {
+                try {
+                    buzzer.currentTime = 0;
+                    buzzer.play();
+                } catch (e) { }
+            }
+            setTimeout(() => wrongX.classList.remove('show'), 800);
+        }
         // Key handling: SPACE to start/pause, 1–5 to reveal
         document.addEventListener('keydown', function (event) {
             // SPACE pressed
@@ -304,6 +339,10 @@
                     timerRunning = false;
                     dingAudio.play();
                 }
+            }
+            if (event.key === 'x') {
+                showWrongX();
+                return;
             }
 
             // Reveal answers
